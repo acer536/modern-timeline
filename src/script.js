@@ -489,7 +489,7 @@ const timelineData = {
         let previouslyFocusedElement = null;
         let advanceIntro = null;
         let pendingChartRenderInfo = null;
-        let observer = null; // 用來存放我們的捲動偵測器
+        let observer = null; // 用來存放捲動偵測器
 
         // --- 多國語言支援 ---
         let currentLang = 'en'; // 預設語言為英文
@@ -557,7 +557,7 @@ const timelineData = {
         // --- 資料處理 ---
 function loadAndSortData() {
     try {
-        const allData = timelineData; // 直接使用我們定義好的資料
+        const allData = timelineData; // 直接使用定義好的資料
         eventsData = allData.events || [];
         otherEventsDataStore = allData.otherEvents || {};
         rocketLaunchData = allData.rocketLaunches || [];
@@ -780,7 +780,7 @@ function loadAndSortData() {
         function getIconSVG(event) {
 		    const { id, iconType, isPeace, isPivotal, actor, isMajorConflict, isMilitary } = event;
 		
-		    // 新邏輯：優先檢查這個事件是否在我們的「覆蓋清單」中
+		    // 新邏輯：優先檢查這個事件是否在「覆蓋清單」中
 		    const overrideIcon = ICON_OVERRIDES[id];
 		    let effectiveIconType = overrideIcon || iconType;
 		
@@ -933,7 +933,18 @@ function loadAndSortData() {
                     }
 
                     if (mainBlockClass) {
-                        entryDiv.innerHTML = `<div class="${mainBlockClass} ${hasDetails ? CSS_CLASSES.HAS_TOOLTIP : ''}" data-event-id="${event.id}">${mainContent}</div>`;
+                        // 在這裡移除了外層的 .timeline-interruption div
+                        // 直接將 class 加到 entryDiv 上，並將內容放入
+                        entryDiv.innerHTML = mainContent;
+                        // 把 tooltip 和 data-event-id 移到 entryDiv 上
+                        if(hasDetails) {
+                            entryDiv.classList.add(CSS_CLASSES.HAS_TOOLTIP);
+                        }
+                        entryDiv.setAttribute('data-event-id', event.id);
+
+                        // 將原本在 mainContent 裡的 class 也移到 entryDiv 上
+                        entryDiv.classList.add(mainBlockClass);
+
                     } else {
                         entryDiv.innerHTML = `
                             <div class="timeline-event-content ${eventCounter % 2 === 0 ? 'event-left' : 'event-right'} ${hasDetails ? CSS_CLASSES.HAS_TOOLTIP : ''}" data-event-id="${event.id}">
@@ -1236,7 +1247,7 @@ function loadAndSortData() {
                             borderColor: isDarkMode ? 'rgba(228, 228, 231, 0.2)' : 'rgba(39, 39, 42, 0.2)', borderWidth: 1,
                             callbacks: {
                                 label: function(context) {
-                                    // 在所有裝置上都使用我們新增的短標籤翻譯
+                                    // 在所有裝置上都使用新增的短標籤翻譯
                                     return `${translations.chartLegendLabelShort[currentLang]}: ${context.parsed.y.toLocaleString('en-US')}`;
                                 }
                             }
@@ -1393,7 +1404,7 @@ function loadAndSortData() {
 			});
 		
 		    fabActions.addEventListener('click', (e) => {
-		    // 我們的目標是圓形按鈕本身，而不是整個區塊
+		    // 目標是圓形按鈕本身，而不是整個區塊
 		    const button = e.target.closest('.fab-button-child');
 		
 		    // 如果點擊的不是按鈕 (例如點到文字或空白處)，就什麼都不做
@@ -1627,7 +1638,7 @@ function loadAndSortData() {
                     // 3. 將新的主題選擇儲存起來
                     localStorage.setItem('theme', newTheme);
 
-                    // 4. 套用新主題（這個函式會讀取我們剛存好的設定並更新畫面）
+                    // 4. 套用新主題（這個函式會讀取剛存好的設定並更新畫面）
                     applyTheme();
                 });
             }
@@ -1894,7 +1905,7 @@ function loadAndSortData() {
                 threshold: 0
             };
 
-            // 建立一個新的偵測器，並存到我們的全域變數中
+            // 建立一個新的偵測器，並存到全域變數中
             observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
