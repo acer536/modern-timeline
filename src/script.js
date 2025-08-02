@@ -1898,20 +1898,24 @@ function loadAndSortData() {
 
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
+                    // 當元素進入可視範圍時
                     if (entry.isIntersecting) {
+                        // 為元素加上觸發動畫的 class
                         entry.target.classList.add('start-animation');
-                        observer.unobserve(entry.target); // 播放一次後就停止觀察
+                    } else {
+                        // 新增：當元素離開可視範圍時，移除 class，為下次動畫做準備
+                        entry.target.classList.remove('start-animation');
                     }
                 });
             }, {
-                threshold: 0.1 // 元素進入畫面 10% 就觸發
+                threshold: 0.1 // 元素出現 10% 就觸發
             });
 
             elementsToAnimate.forEach(el => {
                 observer.observe(el);
             });
         }
-        
+
         function setupIntersectionObserver() {
             // 如果舊的偵測器還在，先停止它
             if (observer) {

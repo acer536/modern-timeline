@@ -401,32 +401,7 @@
             margin-left: auto;
             margin-right: auto;
         }
-        .splash-content .click-to-enter {
-            font-family: 'Noto Sans TC', 'Open Sans', sans-serif;
-            font-size: clamp(1rem, 2vw, 1.25rem);
-            color: var(--splash-text-secondary);
-            opacity: 0.8;
-            margin-top: 2rem;
-            padding: 0.8rem 1.8rem;
-            border: 1px solid var(--splash-cta-border);
-            border-radius: 8px;
-            background-color: transparent;
-            cursor: pointer;
-            display: inline-block;
-            animation: pulse 2.5s infinite ease-in-out;
-            transition: background-color 0.3s, color 0.3s, opacity 0.3s;
-        }
-        .splash-content .click-to-enter:hover {
-            background-color: rgba(255,255,255,0.07);
-            opacity: 1;
-        }
 
-        @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(161, 161, 170, 0.1); }
-            50% { transform: scale(1.03); box-shadow: 0 0 0 12px rgba(161, 161, 170, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(161, 161, 170, 0); }
-        }
-        
         .ripple {
             position: absolute;
             border-radius: 50%;
@@ -1418,7 +1393,7 @@
         /* Splash Screen */
         #splashTitleText.start-animation { animation-delay: 0.2s; }
         #splashSubtitleText.start-animation { animation-delay: 0.4s; }
-        #enterTimelineButton.start-animation { animation-delay: 0.6s; }
+        #langToggleButton.start-animation { animation-delay: 0.2s; }
 
         /* Hero Section - Page 1 */
         #heroTitle.start-animation { animation-delay: 0.2s; }
@@ -1434,4 +1409,41 @@
         #startTimelineButton.start-animation {
             animation: slide-in-up 0.8s ease-out forwards 0.6s, 
                     pulse-button-scale 2.5s infinite ease-in-out 1.4s; /* 進場動畫結束後再開始跳動 */
+        }
+
+        /* --- Splash Screen Button Styles (Final Version) --- */
+
+        /* 1. 定義脈搏跳動動畫效果 */
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(161, 161, 170, 0.1); }
+            50% { transform: scale(1.03); box-shadow: 0 0 0 12px rgba(161, 161, 170, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(161, 161, 170, 0); }
+        }
+
+        /* 2. 設定按鈕的原始外觀 (透明背景 + 邊框) */
+        .splash-content .click-to-enter {
+            font-family: 'Noto Sans TC', 'Open Sans', sans-serif;
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            color: var(--splash-text-secondary);
+            margin-top: 2rem;
+            padding: 0.8rem 1.8rem;
+            border: 1px solid var(--splash-cta-border);
+            border-radius: 8px;
+            background-color: transparent;
+            cursor: pointer;
+            display: inline-block;
+            transition: background-color 0.3s, color 0.3s, opacity 0.3s;
+            opacity: 0; /* 確保按鈕在動畫前是透明的，防止閃爍 */
+        }
+
+        /* 3. 設定原始的滑鼠懸停效果 */
+        .splash-content .click-to-enter:hover {
+            background-color: rgba(255,255,255,0.07);
+            opacity: 1;
+        }
+
+        /* 4. 設定組合動畫 (滑入 + 脈搏) */
+        .click-to-enter.start-animation {
+            animation: slide-in-up 0.8s ease-out forwards 0.6s,
+                    pulse 2.5s infinite ease-in-out 1.4s;
         }
