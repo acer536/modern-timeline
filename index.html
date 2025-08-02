@@ -64,10 +64,10 @@
         </div>
         <div id="splashMainMenu" style="opacity: 0; display: none;">
             <div class="splash-content">
-                <p class="splash-title" id="splashTitleText">仇恨的根源</p>
-                <p class="splash-subtitle" id="splashSubtitleText">巴以百年衝突史</p>
-                <button id="enterTimelineButton" class="click-to-enter">開始探索</button>
-            </div>
+                <p class="splash-title animate-on-load" id="splashTitleText">仇恨的根源</p>
+                <p class="splash-subtitle animate-on-load" id="splashSubtitleText">巴以百年衝突史</p>
+                <button id="enterTimelineButton" class="click-to-enter animate-on-load">開始探索</button>
+            </div>            
             <div id="splashLangSelector" style="position: absolute; top: 1.5rem; right: 1.5rem; z-index: 10;">
                 <button id="langToggleButton" style="background-color: transparent; border: none; color: var(--splash-text-secondary); padding: 0.5rem 1rem; border-radius: 6px; font-size: 0.9rem; cursor: pointer; transition: color 0.2s;">Eng</button>
             </div>
@@ -101,9 +101,9 @@
         <header class="site-hero" id="siteHero">
             <div class="site-hero-stage-wrapper" id="heroStage1Wrapper">
                 <div class="site-hero-content">
-                    <h1 id="heroTitle">和平為何總是遙不可及？</h1>
-                    <p id="heroSubtitle">百年的血與淚，我們究竟錯過了什麼？<br class="sm:hidden">這是一趟關於選擇、暴力與錯失機會的探索之旅。</p>
-                    <button id="showPrologueButton" class="prologue-button" aria-label="捲動至前言">
+                    <h1 id="heroTitle" class="animate-on-load">和平為何總是遙不可及？</h1>
+                    <p id="heroSubtitle" class="animate-on-load">百年的血與淚，我們究竟錯過了什麼？<br class="sm:hidden">這是一趟關於選擇、暴力與錯失機會的探索之旅。</p>
+                    <button id="showPrologueButton" class="prologue-button animate-on-load" aria-label="捲動至前言">                        
 					    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
 					        <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
 					    </svg>
@@ -112,15 +112,15 @@
             </div>
             <div class="site-hero-stage-wrapper" id="prologueSection">
                 <div class="site-hero-content">
-                    <h2 class="prologue-title" id="prologueTitle">前言：2023年10月7日</h2>
-                    <p class="prologue-text" id="prologueText">
+                    <h2 class="prologue-title animate-on-load" id="prologueTitle">前言：2023年10月7日</h2>
+                    <p class="prologue-text animate-on-load" id="prologueText">                        
                         哈瑪斯對以色列發動了史無前例的突襲，殺害了約1200人並擄走超過240名人質，引爆了新一輪的加薩戰爭，造成了慘重的人道悲劇。
                         <br><br>
                         這場看似突然的衝突，其實是百年恩怨的最新篇章。
                         <br>
                         <strong>但這一切，究竟是如何開始的？</strong>
                     </p>
-                    <button id="startTimelineButton" class="prologue-button">
+                    <button id="startTimelineButton" class="prologue-button animate-on-load">                        
 					    <span id="startTimelineButtonText">回到起點，尋找衝突的根源</span>
 					    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="width:1.25rem; height:1.25rem; margin-left: 0.5rem;" aria-hidden="true">
 					        <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />

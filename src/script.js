@@ -1890,6 +1890,27 @@ function loadAndSortData() {
                 button.disabled = true;
             });
         }
+
+        // --- 新增：專門用來觸發進場動畫的偵測器 ---
+        function setupAnimationObserver() {
+            const elementsToAnimate = document.querySelectorAll('.animate-on-load');
+            if (elementsToAnimate.length === 0) return;
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('start-animation');
+                        observer.unobserve(entry.target); // 播放一次後就停止觀察
+                    }
+                });
+            }, {
+                threshold: 0.1 // 元素進入畫面 10% 就觸發
+            });
+
+            elementsToAnimate.forEach(el => {
+                observer.observe(el);
+            });
+        }
         
         function setupIntersectionObserver() {
             // 如果舊的偵測器還在，先停止它
@@ -1934,20 +1955,25 @@ function loadAndSortData() {
             applyTheme();
             createPeriodNavigation();
             renderContentBody();
-            createEmbers();
+            createEmbers(); 
             setupEventListeners();
             setupFab();
             setupChartFeatures();
 
+            // 新增：啟用我們為進場動畫建立的專門偵測器
+            setupAnimationObserver(); 
+            
+            // 保留：這是您原有的、用來控制頂部導覽列的偵測器
+            setupIntersectionObserver();
+            
+            // 保留：這是您原有的、用來啟動 Splash Screen 的程式碼
             if (domElements.SPLASH_SCREEN && !domElements.SPLASH_SCREEN.classList.contains(CSS_CLASSES.HIDDEN)) {
                 playIntroSequence();
             } else if (domElements.MAIN_CONTENT_WRAPPER) {
                 domElements.MAIN_CONTENT_WRAPPER.style.display = 'block';
                 domElements.MAIN_CONTENT_WRAPPER.classList.remove('initially-hidden');
             }
-            
-            setupIntersectionObserver();
-        }
+        }        
 
         document.addEventListener('DOMContentLoaded', initializePage);
 

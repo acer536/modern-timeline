@@ -564,7 +564,6 @@
         #showPrologueButton {
             margin-top: 2.5rem;
             padding: 1rem;
-            animation: bounce-arrow 2.5s infinite ease-in-out;
         }
         #showPrologueButton svg {
             margin-left: 0;
@@ -573,7 +572,6 @@
         }
         
         #startTimelineButton {
-            animation: pulse-button-scale 2.5s infinite ease-in-out;
         }
         #startTimelineButton:hover {
             /* Keep existing hover effect, but ensure animation doesn't get fully overridden */
@@ -1394,3 +1392,46 @@
 		#second_intifada_gaza_disengagement .period-year-overlay {
 		    top: 108.5rem;
 		}
+
+        /* --- 全站通用的進場動畫 --- */
+        @keyframes slide-in-up {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-on-load {
+            opacity: 0; /* 動畫開始前預設透明 */
+        }
+
+        .animate-on-load.start-animation {
+            animation: slide-in-up 0.8s ease-out forwards;
+        }
+
+        /* --- 為不同區塊的元素設定動畫延遲 --- */
+
+        /* Splash Screen */
+        #splashTitleText.start-animation { animation-delay: 0.2s; }
+        #splashSubtitleText.start-animation { animation-delay: 0.4s; }
+        #enterTimelineButton.start-animation { animation-delay: 0.6s; }
+
+        /* Hero Section - Page 1 */
+        #heroTitle.start-animation { animation-delay: 0.2s; }
+        #heroSubtitle.start-animation { animation-delay: 0.4s; }
+        #showPrologueButton.start-animation {
+            animation: slide-in-up 0.8s ease-out forwards 0.6s, 
+                    bounce-arrow 2.5s infinite ease-in-out 1.4s; /* 進場動畫結束後再開始彈跳 */
+        }
+
+        /* Hero Section - Page 2 (Prologue) */
+        #prologueTitle.start-animation { animation-delay: 0.2s; }
+        #prologueText.start-animation { animation-delay: 0.4s; }
+        #startTimelineButton.start-animation {
+            animation: slide-in-up 0.8s ease-out forwards 0.6s, 
+                    pulse-button-scale 2.5s infinite ease-in-out 1.4s; /* 進場動畫結束後再開始跳動 */
+        }
